@@ -1,5 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTServo,  none,     none)
-#pragma config(Sensor, S1,     ultraSonic,     sensorSONAR)
+#pragma config(Sensor, S2,     ultraSonic,     sensorSONAR)
 #pragma config(Motor,  mtr_S1_C1_1,     frontRight,    tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C1_2,     frontLeft,     tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C2_1,    clamp,                tServoStandard)
@@ -13,10 +13,10 @@
 #include "JoystickDriver.c"
 
 void writeDistance() {
-	int distance = 20;
-	while(SensorValue[ultraSonic] > distance) {
-		//writeDebugStreamLine("%d cm", SensorValue[ultraSonic]);
-	}
+		if(SensorValue[ultraSonic] > 100){
+			writeDebugStreamLine("Matt Sucks");
+		}
+		writeDebugStreamLine("%d cm", SensorValue[ultraSonic]);
 }
 
 void servoMovement(int threshHold){
