@@ -32,6 +32,10 @@ void motorControl() {
 		rightPower += power;
 		leftPower += power;
 	}
+	if(power < threshold) {
+		rightPower += power;
+		leftPower += power;
+	}
 
 	motor[pivotMotor] = pivotPower;
 	motor[frontRight] = rightPower;
@@ -40,24 +44,6 @@ void motorControl() {
 		Sidestep- move front wheels in one direction,
 		pivot set opposite
 	*/
-/*
-	if(power > threshold) {
-		if(leftPower < 0) {
-			leftPower -= power;
-			rightPower += power;
-		} else {
-			leftPower += power;
-			rightPower -= power;
-		}
-	} else if(power < -threshold) {
-		if(leftPower < 0) {
-			leftPower += power;
-			rightPower -= power;
-		} else {
-			leftPower -= power;
-			rightPower += power;
-		}
-	}*/
 }
 
 task main()
