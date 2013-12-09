@@ -1,14 +1,14 @@
 #pragma config(Hubs,  S1, HTMotor,  HTServo,  HTMotor,  HTMotor)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Motor,  mtr_S1_C1_1,     motorPlat,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C1_2,     motorArm,       tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_1,     motorPlat,     tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_2,     motorArm,      tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C3_1,     motorFR,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_2,     motorFL,       tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C4_1,     motorBR,      tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C4_2,     motorBL,     tmotorTetrix, openLoop, reversed)
-#pragma config(Servo,  srvo_S1_C2_1,    elbow1,               tServoStandard)
-#pragma config(Servo,  srvo_S1_C2_2,    elbow2,               tServoStandard)
-#pragma config(Servo,  srvo_S1_C2_3,    wrist,                tServoStandard)
+#pragma config(Motor,  mtr_S1_C4_1,     motorBR,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C4_2,     motorBL,       tmotorTetrix, openLoop, reversed)
+#pragma config(Servo,  srvo_S1_C2_1,    leftPlow,             tServoStandard)
+#pragma config(Servo,  srvo_S1_C2_2,    rightPlow,            tServoStandard)
+#pragma config(Servo,  srvo_S1_C2_3,    armServo,             tServoStandard)
 #pragma config(Servo,  srvo_S1_C2_4,    servo4,               tServoNone)
 #pragma config(Servo,  srvo_S1_C2_5,    servo5,               tServoNone)
 #pragma config(Servo,  srvo_S1_C2_6,    servo6,               tServoNone)
@@ -48,7 +48,7 @@ void initializeRobot()
 {
 	// Place code here to initialize servos to starting positions.
 	// Sensors are automatically configured and setup by ROBOTC. They may need a brief time to stabilize.
-	initServos();
+	//initServos();
 	return;
 }
 
@@ -115,11 +115,11 @@ task main()
 
 		safety();						// Run robot safeties
 		if (!robotActive) {
-			writeDebugStreamLine("Safe!");
+			//writeDebugStreamLine("Safe!");
 			continue;		// Don't do anything if robot is not Active.
 		}
 		else {
-			writeDebugStreamLine("Active!");
+			//writeDebugStreamLine("Active!");
 		}
 
 		//writeDebugStreamLine("%i", bFloatDuringInactiveMotorPWM);

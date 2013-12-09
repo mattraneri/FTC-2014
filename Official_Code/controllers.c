@@ -5,6 +5,8 @@
 #include "drivetrain.c"
 #include "arm.c"
 
+
+
 int normalizeJoysticks(int i) {
 	/**	Takes an integer from JOY_THRESHOLD to 128, and
 		normalizes it to a scale from MOTOR_OFF to MOTOR_MAX.
@@ -93,32 +95,16 @@ void readJoys2() {
 	int joy2x = joystick.joy2_x2;
 	int joy2y = joystick.joy2_y2;
 
-	bool joy1Active = abs(joy1y) > JOY_THRESHOLD;
-	bool joy2Active = abs(joy2y) > JOY_THRESHOLD;
-
-	joy1x = normalizeJoysticks(joy1x);
-	joy1y = normalizeJoysticks(joy1y);
-
-	joy2x = normalizeJoysticks(joy2x);
-	joy2y = normalizeJoysticks(joy2y);
-
-	// Shoulder
-	if (joy2Active) {
-		//writeDebugStreamLine("Manual");
-		manual(0, joy2y);
-	}
-	else {
-		//writeDebugStreamLine("OFF");
-		manual(0, 0);
+	if(joy1x > JOY_THRESHOLD) {
+		moveLeft(-1);
+	} else if(joy1x < -JOY_THRESHOLD) {
+		moveLeft(1);
 	}
 
-	// Elbow
-	if (joy1Active) {
-		//writeDebugStreamLine("Joy1Y: %i", joy1y);
-		manual(1, joy1y);
-	}
-	else {
-		manual(1, 0);
+	if(joy2x > JOY_THRESHOLD) {
+		moveRight(-1);
+	} else if(joy2x < -JOY_THRESHOLD) {
+		moveRight(1);
 	}
 }
 
@@ -135,80 +121,19 @@ void readButtons1() {
 		motor[motorPlat] = MOTOR_OFF;
 	}
 }
-
+bool wasPressed = false;
+bool lastPressed = false;
 void readButtons2() {
 	/**	Reads the Buttons on Controller 2 (NOT the Joysticks!), then acts accordingly.
 		*/
-
-	static bool incrementPressed = false;
-	static bool incrementPressedServos = false;
-	static bool balancedPressed = false;
-
-	if (joy2Btn(2)) {
-		if (!balancedPressed) {
-			balancedPressed = true;
-			if (armBalanced) armBalanced = false;
-			else armBalanced = true;
-		}
+	if (joy2Btn(4) && wasPressed == false) {
+		togglePlow();
+		wasPressed = true;
 	}
-	else {
-		balancedPressed = false;
+	if(lastPressed = true && joy2Btn(4) == false) {
+		wasPressed = false;
 	}
-
-	if (joy2Btn(6)) {
-		unfold();
-	}
-
-	if (joy2Btn(5)) {
-		straighten();
-	}
-
-	if (joy2Btn(1)) {
-		initServos();
-	}
-
-	if (joy2Btn(7)) {
-		if (servoReduceRatio > 0.0 && !incrementPressedServos) {
-			servoReduceRatio -= SERVO_RATIO_INCREMENT;
-			incrementPressedServos = true;
-		}
-	}
-	else if (joy2Btn(8)) {
-		if (servoReduceRatio < 0.1 && !incrementPressedServos) {
-			servoReduceRatio += SERVO_RATIO_INCREMENT;
-			incrementPressedServos = true;
-		}
-	}
-	else {
-		incrementPressedServos = false;
-	}
-
-
+	lastPressed = joy2Btn(4);
 	//writeDebugStreamLine("Ratio: %f", motorReduceRatio);
 
-	switch(joystick.joy2_TopHat) {
-		case 0:
-			manual(2, TOPHAT_INCREMENT);
-			break;
-		case 4:
-			manual(2, -TOPHAT_INCREMENT);
-			break;
-
-		case 6:
-			if (motorReduceRatio > 0.1 && !incrementPressed) {
-				motorReduceRatio -= MOTOR_RATIO_INCREMENT;
-				incrementPressed = true;
-			}
-			break;
-		case 2:
-			if (motorReduceRatio < 1.0 && !incrementPressed) {
-				motorReduceRatio += MOTOR_RATIO_INCREMENT;
-				incrementPressed = true;
-			}
-			break;
-
-		default:
-			incrementPressed = false;
-			break;
-	}
 }
