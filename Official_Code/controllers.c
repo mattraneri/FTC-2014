@@ -96,15 +96,19 @@ void readJoys2() {
 	int joy2y = joystick.joy2_y2;
 
 	if(joy1x > JOY_THRESHOLD) {
-		moveLeft(-1);
+		moveLeft(0);
 	} else if(joy1x < -JOY_THRESHOLD) {
-		moveLeft(1);
+		moveLeft(256);
+	} else {
+		moveLeft(127);
 	}
 
 	if(joy2x > JOY_THRESHOLD) {
-		moveRight(-1);
+		moveRight(0);
 	} else if(joy2x < -JOY_THRESHOLD) {
-		moveRight(1);
+		moveRight(256);
+	} else {
+		moveRight(127);
 	}
 }
 
@@ -121,19 +125,34 @@ void readButtons1() {
 		motor[motorPlat] = MOTOR_OFF;
 	}
 }
-bool wasPressed = false;
-bool lastPressed = false;
+bool was4Pressed = false;
+bool last4Pressed = false;
+
+bool was1Pressed = false;
+bool last1Pressed = false;
 void readButtons2() {
 	/**	Reads the Buttons on Controller 2 (NOT the Joysticks!), then acts accordingly.
 		*/
-	if (joy2Btn(4) && wasPressed == false) {
-		togglePlow();
-		wasPressed = true;
-	}
-	if(lastPressed = true && joy2Btn(4) == false) {
-		wasPressed = false;
-	}
-	lastPressed = joy2Btn(4);
+		if(joy2Btn(1) && was1Pressed == false) {
+			toggleGrab();
+			was1Pressed = true;
+		}
+
+		if(last1Pressed = true && joy2Btn(1) == false) {
+			was1Pressed = false;
+		}
+		last1Pressed = joy2Btn(1);
+
+
+		if (joy2Btn(4) && was4Pressed == false) {
+			togglePlow();
+			was4Pressed = true;
+		}
+		if(last4Pressed = true && joy2Btn(4) == false) {
+			was4Pressed = false;
+		}
+		last4Pressed = joy2Btn(4);
+
 	//writeDebugStreamLine("Ratio: %f", motorReduceRatio);
 
 }

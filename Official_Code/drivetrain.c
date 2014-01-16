@@ -75,7 +75,7 @@ void moveTurn(int moveMag, int turnMag) {
 		ie, if you want to turn right, slow down the right wheels, and vice versa.
 		*/
 
-	writeDebugStreamLine("%i", moveMag);
+	//writeDebugStreamLine("%i", moveMag);
 
 	if (turnMag < 0) {
 		motor[motorBL] = moveMag + turnMag;
