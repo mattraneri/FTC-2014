@@ -34,7 +34,7 @@ void rightPark() {
 	motor[motorFR] = 00;
 	motor[motorBL] = 00;
 	motor[motorBR] = 00;
-	wait1Msec(100);
+	wait1Msec(1000);
 	motor[motorFL] = 100;
 	motor[motorFR] = -100;
 	motor[motorBL] = 100;
@@ -44,7 +44,7 @@ void rightPark() {
 	motor[motorFR] = 00;
 	motor[motorBL] = 00;
 	motor[motorBR] = 00;
-	wait1Msec(100);
+	wait1Msec(1000);
 	motor[motorFL] = 100;
 	motor[motorFR] = 100;
 	motor[motorBL] = 100;
@@ -103,6 +103,7 @@ task main()
   initializeRobot();
 
   waitForStart();
- 	parkOnRamp(0);
+ 	parkOnRamp(1);
   //Autonomous code goes here.
  }
+
