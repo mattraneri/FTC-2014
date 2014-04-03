@@ -130,9 +130,17 @@ bool last4Pressed = false;
 
 bool was1Pressed = false;
 bool last1Pressed = false;
+
+bool isMovingMotor = false;
 void readButtons2() {
 	/**	Reads the Buttons on Controller 2 (NOT the Joysticks!), then acts accordingly.
 		*/
+
+
+
+		if(joy2Btn(2)) {
+			servo[servo5] = 1;
+		}
 
 	//writeDebugStreamLine("Ratio: %f", motorReduceRatio);
 

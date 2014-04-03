@@ -1,4 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTServo)
+#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     irSensor,       sensorHiTechnicIRSeeker600)
 #pragma config(Sensor, S3,     touchSensor,    sensorTouch)
 #pragma config(Motor,  mtr_S1_C1_1,     motorBR,       tmotorTetrix, openLoop)
@@ -27,7 +28,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "JoystickDriver.c"  				//Include file to "handle" the Bluetooth messages.
-#pragma DebuggerWindows("debugStream")		// Debug Stream
+
 
 #include "globals.c"
 #include "controllers.c"

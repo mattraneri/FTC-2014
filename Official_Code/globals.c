@@ -6,7 +6,7 @@
 /* Constants */
 
 const int JOY_MAX = 128;					// Maximum possible Joystick input
-const int JOY_THRESHOLD = 10;				// Program will ignore Joystick input that is less than this value.
+const int JOY_THRESHOLD = 20;				// Program will ignore Joystick input that is less than this value.
 
 const int MOTOR_MAX = 100;					// Motor Max Value
 const int MOTOR_OFF = 0;					// Motor Stop Value
